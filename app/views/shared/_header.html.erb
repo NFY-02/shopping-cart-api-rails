@@ -1,0 +1,11 @@
+<header>
+  <nav class="navbar navbar-light">
+    <div class="container">
+      <h1 class=""><%= link_to "LOADAR", root_path %></h1>
+      <div>
+        <%= link_to image_tag("cart.png"), cart_path %>
+        <span id="cart_count"><%= session[:cart]&.values&.sum || 0 %></span>
+      </div>
+    </div>
+  </nav>
+</header>

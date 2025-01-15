@@ -1,16 +1,13 @@
-<p style="color: green"><%= notice %></p>
-
-<% content_for :title, "Products" %>
-
-<h1>Products</h1>
-
-<div id="products">
-  <% @products.each do |product| %>
-    <%= render product %>
-    <p>
-      <%= link_to "Show this product", product %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New product", new_product_path %>
+<% @products.each do |product| %>
+  <section class="product">
+    <div class="image">
+        <%= main_image(product) %>
+    </div>
+    <div class="summary">
+      <h2><%= product.name %></h2>
+      <h3><%= price(product) %></h3>
+      <%= button_to "Add to cart", add_to_cart_path(product_id: product.id),
+       method: :post, class: "btn btn-outline-dark", data: { turbo_frame: "cart_count" } %>
+    </div>  
+  </section>
+<% end %>

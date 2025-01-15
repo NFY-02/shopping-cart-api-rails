@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  resources :products
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  get "products" => "products#index"
-  post "/add_to_cart", to: "cart#add_to_cart", as: :add_to_cart
+  root "products#index"
 
+  resources :products, only: [ :index ]
+  get "/cart", to: "products#cart", as: :cart
+  post "/add_to_cart", to: "cart#add_to_cart", as: :add_to_cart
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

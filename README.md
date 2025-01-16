@@ -1,24 +1,24 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Shopping Cart Rails
 
-Things you may want to cover:
+Implemented features:
+- Changing the quantity of items.
+- Deleting items.
+- Resetting the cart.
+- Recalculating of the amount when the state changes.
 
-* Ruby version
+![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
+Here is the place I struggled I got confused, because "quantity items", which is over the button "Place order" for some reason doesn't update with the rest of parts of page.
 
-* System dependencies
+![alt text](image-3.png)
+![alt text](image-4.png)
+The trash icon removes the product from the cart.
 
-* Configuration
+![alt text](image-5.png)
+"Place order" button clears the session.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+![alt text](image-6.png)
+I got fetch requests from Turbo.

@@ -1,0 +1,38 @@
+<% if cart.any? %>
+  <% cart.each do |product_id, quantity| %>
+    <% product = Product.find(product_id) %>
+    <%= turbo_frame_tag "product-#{product.id}" do %>
+      <section class="product">
+        <div class="image">
+          <%= main_image(product) %>
+        </div>
+        <div class="summary">
+          <h3><%= product.name %></h3>
+          <%= turbo_frame_tag "quantity-#{product.id}" do %>
+            <p>Quantity: <%= quantity %></p>
+            <p>Price: <%= number_to_currency(product.price * quantity) %></p>
+          <% end %>
+          <div class="d-flex justify-content-between">
+            <div>
+              <%= turbo_frame_tag "buttons-#{product.id}" do %>
+                <%= button_to "-", update_cart_quantity_path(product_id: product.id, quantity: quantity - 1), 
+                  method: :patch, remote: true, class: "btn btn-outline-danger btn-sm" %>
+                <%= turbo_frame_tag "quantity-display-#{product.id}" do %>
+                  <%= render partial: "cart/quantity_display", locals: { quantity: quantity } %>
+                <% end %>
+                <%= button_to "+", update_cart_quantity_path(product_id: product.id, quantity: quantity + 1), 
+                  method: :patch, remote: true, class: "btn btn-outline-success btn-sm" %>
+              <% end %>
+            </div>
+            <div>
+              <%= button_to image_tag("trash.svg"), remove_from_cart_path(product_id: product.id), 
+                method: :delete, remote: true, class: "btn btn-sm" %>
+            </div>
+          </div>  
+        </div>
+      </section>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= render "cart/cart_empty" %>
+<% end %>

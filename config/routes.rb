@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   resources :products, only: [ :index ]
   get "/cart", to: "products#cart", as: :cart
   post "/add_to_cart", to: "cart#add_to_cart", as: :add_to_cart
+  patch "cart/update_quantity", to: "cart#update_quantity", as: :update_cart_quantity
+  delete "clear_cart", to: "cart#clear_cart", as: :clear_cart
+  delete "remove_from_cart", to: "cart#remove_from_cart", as: :remove_from_cart
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

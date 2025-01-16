@@ -1,22 +1,21 @@
+<%= turbo_frame_tag "cart_items" do %>
+  <% if session[:cart].any? %>
+    <h1>Cart</h1>
+    <%= render partial: "cart/cart_items", locals: { cart: session[:cart] } %>
+  <% else %>
+    <%= render "cart/cart_empty" %>
+  <% end %>
+<% end %>
+
 <% if session[:cart].any? %>
-  <h1>Cart</h1>
-  <% total_quantity = 0 %>
-  <% total_price = 0 %> 
-  <% session[:cart].each do |product_id, quantity| %>
-    <% product = Product.find(product_id) %>
-    <% total_quantity += quantity %>
-    <% total_price += product.price * quantity %>
-    
-    <section class="product">
-      <div class="image">
-        <%= main_image(product) %>
-      </div>
-      <div class="summary">
-        <h3><%= product.name %></h3>
-        <%= turbo_frame_tag "quantity-#{product_id}" do %>
-          <p>Quantity: <%= session[:cart][product_id] || 0 %></p>
-          <p>Price: <%= number_to_currency(product.price * quantity) %></p>
-        <% end %>
-<% else %>
-  <%= render "cart/cart_empty" %>
+  <div class="d-flex justify-content-between">
+    <%= turbo_frame_tag "cart_count" do %>
+      <%= render partial: "cart/cart_count", locals: { cart_count: session[:cart].values.sum } %> items
+    <% end %>
+    <%= turbo_frame_tag "total-price" do %>
+      <%= render partial: "cart/total_price", locals: { total_price: @total_price } %>
+    <% end %>
+  </div>
+
+  <%= button_to "Place order", clear_cart_path, method: :delete, remote: true, class: "btn btn-success w-100" %>
 <% end %>
